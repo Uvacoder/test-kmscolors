@@ -2,7 +2,19 @@ import fastify from "fastify";
 
 const server = fastify();
 
-server.get("/ping", async (request, reply) => {
+server.get("/loginUser", async (request, reply) => {
+	return "pong\n";
+});
+server.get("/registerUser", async (request, reply) => {
+	return "pong\n";
+});
+server.get("/checkSession", async (request, reply) => {
+	return "pong\n";
+});
+server.get("/getPalettes", async (request, reply) => {
+	return "pong\n";
+});
+server.get("/getUserPalettes", async (request, reply) => {
 	return "pong\n";
 });
 
