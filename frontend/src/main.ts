@@ -5,9 +5,12 @@ import "./scss/style.scss";
 const moduleList: ModuleBase[] = [new AuthModule()];
 
 moduleList.forEach(async (module) => {
-	await module.initiate();
+	await module
+		.initiate()
+		.catch((err) => console.log(err))
+		.then();
 });
 
-function getModule<T>(): ModuleBase | undefined {
-	return moduleList.find((m) => m instanceof T);
+function getModule(type): ModuleBase | undefined {
+	return moduleList.find((m) => m instanceof type);
 }
