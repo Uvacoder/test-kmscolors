@@ -1,0 +1,5 @@
+@use '../components/component_login';
+
+@mixin login {
+  @include component_login.login;
+}

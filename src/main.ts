@@ -1,5 +1,5 @@
 import ModuleBase from './modules/ModuleBase'
-import './style.scss'
+import './scss/style.scss'
 
 const moduleList: ModuleBase[] = [];
 
