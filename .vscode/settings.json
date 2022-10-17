@@ -1,0 +1,5 @@
+{
+    "nuxt.isNuxtApp": false,
+    "prettier.useTabs": true,
+    "prettier.tabWidth": 2
+}
