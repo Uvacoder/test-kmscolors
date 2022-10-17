@@ -4,8 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "install": "pnpm i",
-    "update": "pnpm update --save",
+    "update": "yarn update --save",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
