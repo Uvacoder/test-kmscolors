@@ -1,9 +1,9 @@
-import AuthModule from './modules/Auth';
-import ModuleBase from './modules/ModuleBase'
-import './scss/style.scss'
+import AuthModule from "./modules/Auth";
+import ModuleBase from "./modules/ModuleBase";
+import "./scss/style.scss";
 
 const moduleList: ModuleBase[] = [new AuthModule()];
 
-moduleList.forEach(async module => {
-  await module.initiate();
+moduleList.forEach(async (module) => {
+	await module.initiate();
 });
