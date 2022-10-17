@@ -1,4 +1,8 @@
 import ModuleBase from './modules/ModuleBase'
-import './style.css'
+import './style.scss'
 
-const modules: T extends ModuleBase
+const moduleList: ModuleBase[] = [];
+
+moduleList.forEach(module => {
+  module.initiate();
+});
