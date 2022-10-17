@@ -1,3 +1,3 @@
 export default interface ModuleBase {
-    initiate(): void;
+    initiate(): Promise<void>;
 }
