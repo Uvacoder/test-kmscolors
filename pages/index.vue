@@ -1,6 +1,9 @@
 <script setup lang="ts">
-const users = useUsers();
+const users =  await useUsers();
 </script>
+
 <template>
-    <h1 class="">yeeeee</h1>
+    <h1 class="text-red-50">yeeeee</h1>
+    <p>{{users}}</p>
 </template>
+    
