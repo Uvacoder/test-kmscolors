@@ -1,0 +1,1 @@
+export { default } from "file:///workspace/kms.colors/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"
