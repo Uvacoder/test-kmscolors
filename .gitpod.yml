@@ -6,4 +6,12 @@ tasks:
   - init: yarn install && yarn build
     command: yarn dev
 
-
+vscode:
+  extensions:
+    - "christian-kohler.path-intellisense"
+    - "graphql.vscode-graphql"
+    - "oderwat.indent-rainbow"
+    - "vue.volar"
+    - "graphql.vscode-graphql-syntax"
+    - "bradlc.vscode-tailwindcss"
+    - "aaron-bond.better-comments"

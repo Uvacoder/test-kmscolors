@@ -1,5 +1,7 @@
 {
     "nuxt.isNuxtApp": false,
     "prettier.useTabs": true,
-    "prettier.tabWidth": 2
+    "prettier.tabWidth": 2,
+    "vscode-graphql.cacheSchemaFileForLookup": true,
+    "graphql-config.load.filePath": "/workspace/kms.colors/graphql.config.ts",
 }
