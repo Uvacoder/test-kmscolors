@@ -5,7 +5,8 @@ const users = await useUsers();
 <template>
     <div>
         <h1 class="text-red-500">syeeeee</h1>
-        <p>{{users}}</p>
+        <p>{{users.getUser('aa')}}</p>
+        <Mycomponent></Mycomponent>
     </div>
 </template>
     

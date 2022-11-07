@@ -8,6 +8,7 @@ export default defineNuxtConfig({
 		},
 	},
 	ssr: false,
+	components: true,
 	modules: ["nuxt-graphql-client", "@nuxtjs/tailwindcss"],
 	css: ["@/assets/scss/style.scss"],
 	runtimeConfig: {
