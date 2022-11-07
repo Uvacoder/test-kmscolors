@@ -6,6 +6,8 @@
         "vue.volar",
         "graphql.vscode-graphql-syntax",
         "bradlc.vscode-tailwindcss",
-        "aaron-bond.better-comments"
+        "aaron-bond.better-comments",
+        "apollographql.vscode-apollo",
+        "esbenp.prettier-vscode"
     ]
 }

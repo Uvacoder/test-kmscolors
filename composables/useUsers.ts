@@ -4,7 +4,7 @@ import { TypeFromQuery } from "~~/helper/typeFromArray";
 export type UserType = TypeFromQuery<GetUserByIdQuery["appusers"]>;
 
 export const useUsers = async () => {
-	const data = (await useAsyncData(() => GqlGetUserById({id: "Udo"}))).data.value?.appusers;
+	const data = (await useAsyncData(() => GqlGetUserById({ id: "Udo" }))).data
+		.value?.appusers as UserType[];
 	return data;
 };
-	

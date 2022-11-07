@@ -4,3 +4,9 @@ query getUserById($id: String!) {
 		name
 	}
 }
+
+query checkUserLogin($id: String!) {
+	appusers(filter: { name: { _eq: $id } }) {
+		name
+	}
+}
