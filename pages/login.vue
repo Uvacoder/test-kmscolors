@@ -7,10 +7,14 @@ const doSthWithInput = async () => {
     let service = await useUsers();
     console.log(await service.checkLogin(user.username, user.password))
 }
+
+definePageMeta({
+    middleware: 'auth'
+})
 </script>
 <template>
     <div>
-        <Button label="Back" sub-label="to Home" route="/" ></Button>
+        <Button label="Back" sub-label="to Home" route="/"></Button>
         <p>Login</p>
         <form>
             <div class="place-content-center w-6/6 lg:w-3/6 xl:w-2/6">

@@ -1,6 +1,7 @@
 import { GetUserByUsernameQuery } from "#gql";
+import { sha3_256 } from "js-sha3";
 import { TypeFromQuery } from "~~/helper/typeFromArray";
-7;
+
 export type UserType = TypeFromQuery<GetUserByUsernameQuery["appusers"]>;
 
 export const useUsers = async () => {
@@ -21,7 +22,7 @@ class UserService {
 	): Promise<boolean> {
 		const data = (
 			await useAsyncData(() =>
-				GqlLogin({ username: username, password: password })
+				GqlLogin({ username: username, password: sha3_256(password) })
 			)
 		).data.value?.appusers as UserType[];
 
