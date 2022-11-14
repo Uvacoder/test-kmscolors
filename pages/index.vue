@@ -8,6 +8,6 @@ const user = await (await useUsers()).getUser('ab');
         <p>{{user}}</p>
         <Mycomponent></Mycomponent>
         <li><NuxtLink to="/login">Login</NuxtLink></li>
+        <ColorPaletteCard />
     </div>
 </template>
-        

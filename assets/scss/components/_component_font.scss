@@ -1,6 +1,0 @@
-@use 'component_constants';
-
-@mixin font-size {
-  @include component_constants.constants;
-  font-size: clamp(var(--pageGutter), 2vw, calc(var(--pageGutter) * 2));
-}
