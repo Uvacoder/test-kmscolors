@@ -1,7 +1,10 @@
-query getColors{
-    colors{
-        name
-        id,
-        __typename
-    }
+query getColors {
+	colors {
+		...color
+	}
+}
+
+fragment color on colors {
+	id
+	name
 }

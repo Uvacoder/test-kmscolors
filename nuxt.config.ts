@@ -7,13 +7,37 @@ export default defineNuxtConfig({
 			},
 		},
 	},
+	runtimeConfig: {
+		public: {
+			GQL_HOST: "https://p8ulf5vo.directus.app/graphql",
+		},
+	},
 	ssr: false,
 	components: true,
 	modules: ["nuxt-graphql-client", "@nuxtjs/tailwindcss"],
 	css: ["@/assets/scss/style.scss"],
-	runtimeConfig: {
-		public: {
-			GQL_HOST: "https://p8ulf5vo.directus.app/graphql",
+	"graphql-client": {
+		watch: true,
+		autoImport: true,
+		functionPrefix: "Gql",
+		documentPaths: ["./"],
+		preferGETQueries: false,
+		codegen: {
+
+			silent: true,
+			skipTypename: true,
+			useTypeImports: true,
+			dedupeFragments: true,
+			onlyOperationTypes: true,
+			disableOnBuild: false,
+		},
+		clients: {
+			directus: {
+				
+				clientHost: "https://p8ulf5vo.directus.app/graphql",
+				host: "https://p8ulf5vo.directus.app/graphql",
+				schema:"https://p8ulf5vo.directus.app/graphql",
+			},
 		},
 	},
 });
