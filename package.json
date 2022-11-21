@@ -13,6 +13,7 @@
     "sass": "^1.55.0"
   },
   "dependencies": {
+    "js-sha3": "^0.8.0",
     "nuxt-graphql-client": "^0.2.8"
   }
 }
