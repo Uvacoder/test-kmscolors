@@ -17,17 +17,17 @@ class UserService {
 		return data;
 	}
 	public async checkLogin(
-		username: string,
-		password: string
+		email: string,
+		password: string,
 	): Promise<boolean> {
 		const data = (
 			await useAsyncData(() =>
-				GqlLogin({ username: username, password: sha3_256(password) })
+				GqlLogin({ email: email, password: password})
 			)
-		).data.value?.appusers;
+		).data.value?.auth_login;
 		console.log(data);
 
-		return Array.isArray(data) && data.length > 0 ? true : false;
+		return true
 	}
 	public createUser(username: string, password: string) { }
 }

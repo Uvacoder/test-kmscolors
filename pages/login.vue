@@ -9,7 +9,7 @@ const doSthWithInput = async () => {
 }
 
 definePageMeta({
-    middleware: 'auth'
+    middleware: 'auth' 
 })
 </script>
 <template>

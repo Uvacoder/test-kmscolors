@@ -1,0 +1,6 @@
+query getUserByUsername($username: String!) {
+	appusers(filter: { username: { _eq: $username } }) {
+		username
+		avatar
+	}
+}
