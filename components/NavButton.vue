@@ -12,7 +12,10 @@ export default {
         },
         route: {
             type: String,
-            required: true,
+        },
+        callback: {
+            type: () => { },
+            required: false
         }
     }
 }
@@ -20,10 +23,17 @@ export default {
 
 <template>
     <button class="group relative h-12 w-48 overflow-hidden rounded-lg bg-white text-lg shadow">
-        <NuxtLink :to="route">
+        <NuxtLink v-if="callback === undefined" :to="route">
             <div class="absolute inset-0 w-3 bg-red-400 transition-all duration-[250ms] ease-out group-hover:w-full">
             </div>
-            <span class="relative text-black group-hover:text-white">{{ label }}</span> {{ subLabel }}
+            <span class="relative text-black group-hover:text-white">{{ label }}</span>
+            {{ subLabel }}
         </NuxtLink>
+        <div v-if="callback != undefined" @click="() => { callback }">
+            <div class="absolute inset-0 w-3 bg-red-400 transition-all duration-[250ms] ease-out group-hover:w-full">
+            </div>
+            <span class="relative text-black group-hover:text-white">{{ label }}</span>
+            {{ subLabel }}
+        </div>
     </button>
 </template>
