@@ -1,0 +1,34 @@
+mutation Login($email: String!, $password: String!) {
+	auth_login(email: $email, password: $password) {
+		access_token
+		expires
+		refresh_token
+	}
+}
+mutation RefreshToken($token: String!) {
+	auth_refresh(refresh_token: $token, mode: json) {
+		access_token
+		refresh_token
+	}
+}
+mutation Logout($token: String!) {
+	auth_logout(refresh_token: $token)
+}
+
+mutation CreateUser($userData: create_directus_users_input!) {
+	create_users_item(data: $userData) {
+		first_name
+	}
+}
+
+query GetUserByMail($email: String!) {
+	users(filter: { email: { _eq: $email } }) {
+		first_name
+		last_name
+		email
+		location
+		title
+		description
+		avatar
+	}
+}
