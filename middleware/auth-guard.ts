@@ -1,9 +1,7 @@
-export default defineNuxtRouteMiddleware( (to, from) => {
+export default defineNuxtRouteMiddleware(async (to) => {
 	let auth = useAuth();
 	if (!auth.isLoggedIn) {
-		auth.lastFailedNavigation.value = to.path;
-		console.log(to.path);
+		auth.lastFailedNavigation.value = to.path
 		navigateTo("/");
-		console.log("EE");
 	}
 });

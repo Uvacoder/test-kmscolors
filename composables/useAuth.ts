@@ -18,7 +18,10 @@ class AuthService {
 	private data = useState<AuthData>("authData", () => {
 		return {};
 	});
-	public lastFailedNavigation = useState<string>();
+	public lastFailedNavigation = useCookie("__lfrc", {
+		sameSite: "strict",
+		secure: true,
+	});
 
 	public attemptingRestore = useState<boolean>("restoreState", () => false);
 
@@ -65,17 +68,19 @@ class AuthService {
 			await this.fetchUser(this.lastUserCookie.value!);
 			this.setCookies(res.auth_refresh?.refresh_token!, this.user?.email!);
 			this.attemptingRestore.value = false;
-			useGqlToken(res.auth_refresh?.access_token!);
+			//useGqlToken(res.auth_refresh?.access_token!);
 			this.refreshTokenCookie.value = res.auth_refresh?.refresh_token!;
-			console.log(this.lastFailedNavigation.value);
-			navigateTo(this.lastFailedNavigation.value)
+			if (this.lastFailedNavigation.value!!) {
+				navigateTo(this.lastFailedNavigation.value);
+			}
 		} catch (err: any) {
 			this.attemptingRestore.value = false;
 			this.resetFields();
 			this.setCookies(null, null);
-			useGqlToken(null);
+			//useGqlToken(null);
 			console.log(err);
 		}
+		this.lastFailedNavigation.value = null
 	}
 
 	public get user() {
