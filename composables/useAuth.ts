@@ -1,4 +1,5 @@
 import { GetUserByMailQuery, LoginMutation } from "#gql";
+import { restoreBlacklistRoutes } from "~~/helper/autoRedirectAfterRestore";
 
 export type AuthData = LoginMutation["auth_login"] & {
 	currentUser?: GetUserByMailQuery["users"][number];
@@ -72,6 +73,9 @@ class AuthService {
 			this.refreshTokenCookie.value = res.auth_refresh?.refresh_token!;
 			if (this.lastFailedNavigation.value!!) {
 				navigateTo(this.lastFailedNavigation.value);
+			}
+			if(restoreBlacklistRoutes.includes(useRoute().path)){
+				navigateTo("/")
 			}
 		} catch (err: any) {
 			this.attemptingRestore.value = false;

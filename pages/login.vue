@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 const auth = useAuth();
 const user = {
     email: "",
