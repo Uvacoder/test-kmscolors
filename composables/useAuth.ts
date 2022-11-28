@@ -9,10 +9,6 @@ class AuthService {
 		sameSite: "strict",
 		secure: true,
 	});
-	private authTokenCookie = useCookie("__autkn", {
-		sameSite: "strict",
-		secure: true,
-	});
 
 	private lastUserCookie = useCookie("__lusrc", {
 		sameSite: "strict",
@@ -22,6 +18,14 @@ class AuthService {
 	private data = useState<AuthData>("authData", () => {
 		return {};
 	});
+	public lastFailedNavigation = useState<string>();
+
+	public attemptingRestore = useState<boolean>("restoreState", () => false);
+
+	private setCookies(refresh_token: string | null, email: string | null) {
+		this.refreshTokenCookie.value = refresh_token;
+		this.lastUserCookie.value = email;
+	}
 
 	public async sendLoginRequest(email: string, password: string) {
 		try {
@@ -29,11 +33,8 @@ class AuthService {
 			this.data.value = { ...res.auth_login };
 			await this.fetchUser(email);
 			useGqlToken(res.auth_login?.access_token!);
-			this.authTokenCookie.value = res.auth_login?.access_token!;
-			this.refreshTokenCookie.value = res.auth_login?.refresh_token!;
-			this.lastUserCookie.value = this.user?.email!;
+			this.setCookies(res.auth_login?.refresh_token!, this.user?.email!);
 			navigateTo("/app");
-			console.log(this.data.value.refresh_token);
 		} catch (err: any) {
 			this.resetFields();
 			console.error(err?.["gqlErrors"][0].message ?? err);
@@ -43,10 +44,9 @@ class AuthService {
 	public async tryContinueSession() {
 		if (
 			this.refreshTokenCookie.value != null &&
-			this.lastUserCookie.value != null &&
-			this.authTokenCookie.value != null
+			this.lastUserCookie.value != null
 		) {
-			useGqlToken(this.authTokenCookie.value);
+			this.attemptingRestore.value = true;
 			await this.sendRefreshRequest(this.refreshTokenCookie.value);
 		}
 	}
@@ -58,17 +58,22 @@ class AuthService {
 
 	private async sendRefreshRequest(refreshToken: string) {
 		try {
-			console.log("REFRESHING");
 			let res = await GqlRefreshToken({
 				refresh_token: refreshToken,
 			});
-			console.log(this.refreshTokenCookie.value);
-			console.log("OLD", this.data.value.access_token);
-			console.log("NEW", res.auth_refresh?.access_token);
 			this.data.value = { ...res.auth_refresh };
 			await this.fetchUser(this.lastUserCookie.value!);
+			this.setCookies(res.auth_refresh?.refresh_token!, this.user?.email!);
+			this.attemptingRestore.value = false;
+			useGqlToken(res.auth_refresh?.access_token!);
 			this.refreshTokenCookie.value = res.auth_refresh?.refresh_token!;
+			console.log(this.lastFailedNavigation.value);
+			navigateTo(this.lastFailedNavigation.value)
 		} catch (err: any) {
+			this.attemptingRestore.value = false;
+			this.resetFields();
+			this.setCookies(null, null);
+			useGqlToken(null);
 			console.log(err);
 		}
 	}
@@ -85,8 +90,9 @@ class AuthService {
 		if (this.data.value.access_token) {
 			let res = await GqlLogout({ token: this.data.value.access_token });
 			if (res.auth_logout) {
-				console.log(res);
 				this.resetFields();
+				this.setCookies(null, null);
+				useGqlToken(null);
 			} else {
 				console.error("Error while logging out");
 			}
@@ -101,6 +107,5 @@ class AuthService {
 	}
 }
 export const useAuth = () => {
-	useCookie("token", { sameSite: "strict" });
 	return new AuthService();
 };

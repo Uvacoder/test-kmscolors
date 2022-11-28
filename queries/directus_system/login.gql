@@ -1,5 +1,5 @@
 mutation Login($email: String!, $password: String!) {
-	auth_login(email: $email, password: $password) {
+	auth_login(email: $email, password: $password,mode: json) {
 		access_token
 		expires
 		refresh_token
