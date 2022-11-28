@@ -38,7 +38,7 @@ class AuthService {
 			await this.fetchUser(email);
 			useGqlToken(res.auth_login?.access_token!);
 			this.setCookies(res.auth_login?.refresh_token!, this.user?.email!);
-			navigateTo("/app");
+			navigateTo(this.lastFailedNavigation.value ?? "/app");
 		} catch (err: any) {
 			this.resetFields();
 			console.error(err?.["gqlErrors"][0].message ?? err);
