@@ -46,7 +46,6 @@ class AuthService {
 			let res = await GqlLogin({ email: email, password: password });
 			this.data.value = { ...res.auth_login };
 			await this.fetchUser(email);
-			useGqlToken(res.auth_login?.access_token!);
 			this.setCookies(res.auth_login?.refresh_token!, this.user?.email!);
 			navigateTo(this.lastFailedNavigation.value ?? "/app");
 		} catch (err: any) {
@@ -129,7 +128,6 @@ class AuthService {
 			if (res.auth_logout) {
 				this.resetFields();
 				this.setCookies(null, null);
-				useGqlToken(null);
 			} else {
 				console.error("Error while logging out");
 			}

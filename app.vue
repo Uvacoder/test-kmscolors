@@ -3,7 +3,7 @@
   <div>
     <NuxtLayout>
       <ClientOnly>
-        <LoadingScreen v-if="auth.attemptingRestore.value"></LoadingScreen>
+        <LoadingScreen text="We are trying to restore your session, hang in there!" v-if="auth.attemptingRestore.value" />
       </ClientOnly>
       <NuxtLoadingIndicator />
       <NuxtPage />
