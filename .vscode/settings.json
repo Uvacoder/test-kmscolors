@@ -4,4 +4,5 @@
     "prettier.tabWidth": 2,
     "vscode-graphql.cacheSchemaFileForLookup": true,
     "graphql-config.load.filePath": "/workspace/kms.colors/graphql.config.ts",
+    "typescript.tsdk": "node_modules/typescript/lib",
 }

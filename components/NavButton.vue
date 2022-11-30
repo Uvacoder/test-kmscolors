@@ -8,7 +8,7 @@ export default {
         },
         subLabel: {
             type: String,
-            required: true,
+            required: false,
         },
         route: {
             type: String,
@@ -27,7 +27,7 @@ export default {
             <div class="absolute inset-0 w-3 bg-red-400 transition-all duration-[250ms] ease-out group-hover:w-full">
             </div>
             <span class="relative text-black group-hover:text-white">{{ label }}</span>
-            {{ subLabel }}
+            <span class="pl-1" v-if="subLabel">{{ subLabel }}</span>
         </NuxtLink>
         <div v-if="callback != undefined" @click="() => { callback }">
             <div class="absolute inset-0 w-3 bg-red-400 transition-all duration-[250ms] ease-out group-hover:w-full">
