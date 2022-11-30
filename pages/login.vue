@@ -1,40 +1,42 @@
 <script setup lang="ts">
+
+const auth = useAuth();
 const user = {
-    username: "",
+    email: "",
     password: "",
 }
-const doSthWithInput = async () => {
-    let service = await useUsers();
-    console.log(await service.checkLogin(user.username, user.password))
+
+if(auth.isLoggedIn){
+    navigateTo("/")
 }
 
-definePageMeta({
-    middleware: 'auth'
-})
 </script>
 <template>
-    <div>
-        <Button label="Back" sub-label="to Home" route="/"></Button>
-        <p>Login</p>
-        <form>
-            <div class="place-content-center w-6/6 lg:w-3/6 xl:w-2/6">
-                <div>
-                    <label for="username"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Username</label>
-                    <input v-model="user.username" type="text" id="username"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="John" required>
-                </div>
-                <div>
-                    <label for="password"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Password</label>
-                    <input v-model="user.password" type="password" id="password"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="John" required>
-                </div>
-            </div>
-        </form>
-        <button @click="doSthWithInput()">Log</button>
-    </div>
+    <div class="signup min-h-screen flex flex-col">
+        <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+            <div class="bg-white px-6 pt-8 pb-2 rounded shadow-md text-black w-full">
+                <h1 class="mb-8 text-3xl text-center">Log in</h1>
+                <form>
+                    <input v-model="user.email" autocomplete="email" type="email"
+                        class="block border border-grey-light w-full p-3 rounded mb-4" name="email"
+                        placeholder="Email" />
 
+                    <input v-model="user.password" autocomplete="current-password" type="password"
+                        class="block border border-grey-light w-full p-3 rounded mb-4" name="password"
+                        placeholder="Password" />
+                </form>
+                <p class="text-xs text-center text-red-400 mb-4" v-if="auth.loginHasFailed.value">Wrong credentials! Try again.</p>
+                <button @click="auth.sendLoginRequest(user.email,user.password)" type="submit"
+                    class="btn-grad w-full text-center py-4 mb-2 rounded bg-green text-black focus:outline-none">Send it.</button>
+            
+            </div>
+            
+            <div class="text-grey-dark mt-6">
+                Need an account?
+                <NuxtLink class="no-underline border-b border-blue text-blue" to="/signup">
+                    Sign up!
+                </NuxtLink>
+            </div>
+        </div>
+    </div>
 </template>
