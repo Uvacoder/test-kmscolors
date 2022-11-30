@@ -18,7 +18,8 @@ mutation Logout($token: String!) {
 
 mutation CreateUser($userData: create_directus_users_input!) {
 	create_users_item(data: $userData) {
-		first_name
+		email,
+		role
 	}
 }
 

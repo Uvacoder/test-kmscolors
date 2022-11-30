@@ -19,6 +19,7 @@ class AuthService {
 	private data = useState<AuthData>("authData", () => {
 		return {};
 	});
+	public loginHasFailed = useState<boolean>("lhf", () => false);
 	public lastFailedNavigation = useCookie("__lfrc", {
 		sameSite: "strict",
 		secure: true,
@@ -42,15 +43,19 @@ class AuthService {
 	 * @param {string} password - directus password
 	 */
 	public async sendLoginRequest(email: string, password: string) {
-		try {
-			let res = await GqlLogin({ email: email, password: password });
-			this.data.value = { ...res.auth_login };
-			await this.fetchUser(email);
-			this.setCookies(res.auth_login?.refresh_token!, this.user?.email!);
-			navigateTo(this.lastFailedNavigation.value ?? "/app");
-		} catch (err: any) {
-			this.resetFields();
-			console.error(err?.["gqlErrors"][0].message ?? err);
+		if (email && password) {
+			try {
+				let res = await GqlLogin({ email: email, password: password });
+				this.data.value = { ...res.auth_login };
+				await this.fetchUser(email);
+				this.loginHasFailed.value = false;
+				this.setCookies(res.auth_login?.refresh_token!, this.user?.email!);
+				navigateTo(this.lastFailedNavigation.value ?? "/app");
+			} catch (err: any) {
+				this.loginHasFailed.value = true;
+				this.resetFields();
+				console.error(err?.["gqlErrors"][0].message ?? err);
+			}
 		}
 	}
 

@@ -19,8 +19,8 @@ const nameLabel = () => {
             </template>
         </ClientOnly>
         <NavButton v-if="!auth.isLoggedIn" label="Login" subLabel="Page" route="/login"></NavButton>
+        <NavButton v-if="!auth.isLoggedIn" label="Signup" subLabel="Page" route="/signup"></NavButton>
         <NavButton v-if="auth.isLoggedIn" label="Dashboard" subLabel="" route="/app/dashboard"></NavButton>
         <button @click="auth.sendLogoutRequest()" v-if="auth.isLoggedIn">Logout</button>
     </div>
 </template> 
-        

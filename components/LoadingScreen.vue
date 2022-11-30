@@ -10,17 +10,17 @@ export default {
             required: false,
             default: "Loading..."
         },
-    },
+    }
 }
 </script>
 <script setup>
 const colors = ["#D65F5F", "#FAF99F", "#A1F6B6", "#78D8D0", "#FFACC7", "#B2A4FF"]
-const getColor = () => colors[Math.round(Math.random() * colors.length)]
+const getColor = () => colors[Math.round(Math.random() * colors.length -1)]
 
 </script>
 <template>
     <div wire:loading :style="`background-color: ${getColor()}`"
-        class="backdrop-blur-3xl fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden opacity-75 flex flex-col items-center justify-center">
+        class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden opacity-75 flex flex-col items-center justify-center">
         <div class="loader ease-linear rounded-full border-4 border-t-4 border-white h-12 w-12 mb-4"></div>
         <h2 class="text-center text-black text-xl font-semibold">{{ loadingText }}</h2>
         <p class="w-1/3 text-center text-black">{{ text }}</p>
