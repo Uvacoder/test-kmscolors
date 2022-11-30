@@ -20,6 +20,13 @@ class AuthService {
 		return {};
 	});
 	public loginHasFailed = useState<boolean>("lhf", () => false);
+	private setLoginHasFailed(status:boolean){
+		this.loginHasFailed.value = status;
+		setTimeout(() => {
+			this.loginHasFailed.value = false;
+		},5000)
+
+	}
 	public lastFailedNavigation = useCookie("__lfrc", {
 		sameSite: "strict",
 		secure: true,
@@ -48,11 +55,11 @@ class AuthService {
 				let res = await GqlLogin({ email: email, password: password });
 				this.data.value = { ...res.auth_login };
 				await this.fetchUser(email);
-				this.loginHasFailed.value = false;
+				this.setLoginHasFailed(false);
 				this.setCookies(res.auth_login?.refresh_token!, this.user?.email!);
 				navigateTo(this.lastFailedNavigation.value ?? "/app");
 			} catch (err: any) {
-				this.loginHasFailed.value = true;
+				this.setLoginHasFailed(true);
 				this.resetFields();
 				console.error(err?.["gqlErrors"][0].message ?? err);
 			}

@@ -25,7 +25,7 @@ if(auth.isLoggedIn){
                         class="block border border-grey-light w-full p-3 rounded mb-4" name="password"
                         placeholder="Password" />
                 </form>
-                <p class="text-xs text-center text-red-400 mb-4" v-if="auth.loginHasFailed">Wrong credentials! Try again.</p>
+                <p class="text-xs text-center text-red-400 mb-4" v-if="auth.loginHasFailed.value">Wrong credentials! Try again.</p>
                 <button @click="auth.sendLoginRequest(user.email,user.password)" type="submit"
                     class="btn-grad w-full text-center py-4 mb-2 rounded bg-green text-black focus:outline-none">Send it.</button>
             
