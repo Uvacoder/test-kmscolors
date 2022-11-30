@@ -51,8 +51,9 @@ class AuthService {
 	 */
 	public async sendLoginRequest(email: string, password: string) {
 		if (email && password) {
+			this.setCookies(null, null);
 			try {
-				let res = await GqlLogin({ email: email, password: password });
+				let res = await GqlLogin({ email: email, password: password },{"Cache-Control":"no-store"});
 				this.data.value = { ...res.auth_login };
 				await this.fetchUser(email);
 				this.setLoginHasFailed(false);
