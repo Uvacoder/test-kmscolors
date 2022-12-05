@@ -1,0 +1,61 @@
+$colorPaletteCardTransition: .16s ease-out;
+$colorPaletteCardNameWidth: 33%;
+
+.colorPaletteCard {
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        border: 15px solid white;
+        border-radius: 5px;
+        display: flex;
+        max-width: 500px;
+        box-shadow: 0 10px 20px 0px transparentize(black, 0.8);
+
+        .colorPaletteCard {
+            &__color {
+                &__wrapper {
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    width: 100%;
+                }
+
+                &__item {
+                    height: 40px;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    transition: height $colorPaletteCardTransition;
+
+                    &:hover {
+                        height: 100px;
+
+                        .colorPaletteCard__color__item__name {
+                            opacity: 1;
+                            width: $colorPaletteCardNameWidth;
+                        }
+                    }
+
+                    &__name {
+                        opacity: 0;
+                        color: white;
+                        margin-left: 20px;
+                        padding: 0 5px;
+                        background: transparentize(black, 0.5);
+                        width: 0;
+                        transition: opacity $colorPaletteCardTransition, width $colorPaletteCardTransition;
+
+                        &:after {
+                            content:'';
+                            position: relative;
+                            background: url("./");
+                        }
+                    }
+                }
+
+                &:first-child, &:last-child {
+                }
+            }
+        }
+    }
+}

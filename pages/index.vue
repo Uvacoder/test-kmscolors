@@ -7,10 +7,10 @@ const nameLabel = () => {
     }
     return auth.user?.email;
 }
+
 </script>
 
 <template>
-    <div>
         <section class="py-20 css-selector">
             <div class="flex flex-col px-8 mx-auto space-y-4 max-w-7xl xl:px-12">
                 <div class="relative">
