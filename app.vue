@@ -13,8 +13,17 @@
 </template>
 
 <script setup lang="ts">
+
 const auth = useAuth();
 if (process.client) {
   auth.tryContinueSession()
 }
+
+useHead({
+  titleTemplate: (titleChunk) => {
+    const titleBase = 'Admin One Vue 3 Tailwind'
+    
+    return titleChunk ? `${titleChunk} - ${titleBase}` : titleBase
+  }
+})
 </script>

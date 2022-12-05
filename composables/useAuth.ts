@@ -58,7 +58,7 @@ class AuthService {
 				await this.fetchUser(email);
 				this.setLoginHasFailed(false);
 				this.setCookies(res.auth_login?.refresh_token!, this.user?.email!);
-				navigateTo(this.lastFailedNavigation.value ?? "/app");
+				navigateTo(this.lastFailedNavigation.value ?? "/");
 			} catch (err: any) {
 				this.setLoginHasFailed(true);
 				this.resetFields();
@@ -113,7 +113,6 @@ class AuthService {
 			this.attemptingRestore.value = false;
 			this.resetFields();
 			this.setCookies(null, null);
-			console.log(err);
 		}
 		this.lastFailedNavigation.value = null;
 	}

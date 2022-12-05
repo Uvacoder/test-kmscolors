@@ -7,7 +7,9 @@ const nameLabel = () => {
     }
     return auth.user?.email;
 }
-
+const testFunc = () => {
+    console.log("YES");
+}
 </script>
 
 <template>
@@ -35,6 +37,8 @@ const nameLabel = () => {
                         </NavButton>
                         <NavButton v-if="!auth.isLoggedIn" label="Signup" route="/signup"></NavButton>
                         <NavButton v-if="auth.isLoggedIn" label="Dashboard" route="/app/dashboard"></NavButton>
+                        <NavButton v-if="auth.isLoggedIn" color="red" label="Logout" route="/" @click="auth.sendLogoutRequest()">
+                        </NavButton>
                     </div>
                 </div>
                 <div class="bg-white rounded-xl p-8 flex flex-col mb-8 animated fadeIn sm:flex-row">
