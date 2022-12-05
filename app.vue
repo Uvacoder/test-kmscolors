@@ -21,7 +21,7 @@ if (process.client) {
 
 useHead({
   titleTemplate: (titleChunk) => {
-    const titleBase = 'Admin One Vue 3 Tailwind'
+    const titleBase = 'KMScolors'
     
     return titleChunk ? `${titleChunk} - ${titleBase}` : titleBase
   }
