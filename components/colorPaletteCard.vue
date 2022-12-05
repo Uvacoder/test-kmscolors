@@ -1,11 +1,12 @@
 <script lang="ts">
     import { ClipboardDocumentIcon } from "@heroicons/vue/24/outline";
+    import {useColorCopied} from "~/composables/useColorCopied";
 
     type ColorPalette = {
         colors: Array,
         name: string,
     }
-
+    //mockdata - fetch real colors later
     let colorPalette: ColorPalette = {
         colors: ["#" + Math.floor(Math.random()*16777216).toString(16), "#" + Math.floor(Math.random()*16777216).toString(16), "#" + Math.floor(Math.random()*16777216).toString(16), "#" + Math.floor(Math.random()*16777216).toString(16), "#" + Math.floor(Math.random()*16777216).toString(16), "#" + Math.floor(Math.random()*16777216).toString(16)],
         name: 'Halloween Breeze'
@@ -22,6 +23,9 @@
         methods: {
             copyHex(color, event) {
                 navigator.clipboard.writeText(color);
+                useColorCopied().toggle();
+
+                console.log(useColorCopied());
             }
         }
     }
@@ -32,7 +36,7 @@
         <div class="colorPaletteCard__color__wrapper">
             <div v-for="color in colorPalette.colors"
                  class="colorPaletteCard__color__item"
-                 :data-color="color"
+                 v-bind:data-color="color"
                  v-bind:style="{background: color}"
                  @click="copyHex(color, $event)"
             >
