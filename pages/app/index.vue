@@ -9,5 +9,6 @@ definePageMeta({
             <NuxtLink to="/app/dashboard">Dashboard</NuxtLink>
             <NuxtLink to="/">Landing Page</NuxtLink>
         </div>
+        <NuxtChild></NuxtChild>
     </div>
 </template>
