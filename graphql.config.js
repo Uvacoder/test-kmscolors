@@ -1,8 +1,12 @@
 module.exports = {
 	projects: {
-		default: {
+		directus: {
 			schema: ["https://p8ulf5vo.directus.app/graphql"],
-			documents: ["queries/*.{graphql,gql}"],
+			documents: ["queries/directus/*.{graphql,gql}"],
+		},
+		directus_system: {
+			schema: ["https://p8ulf5vo.directus.app/graphql/system"],
+			documents: ["queries/directus_system/*.{graphql,gql}"],	
 		},
 	},
 };
