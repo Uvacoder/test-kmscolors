@@ -3,3 +3,16 @@ definePageMeta({
     middleware: 'auth-guard'
 })
 </script>
+
+<template>
+    <ColorPaletteCard></ColorPaletteCard>
+    <ColorPaletteCard></ColorPaletteCard>
+    <ColorPaletteCard></ColorPaletteCard>
+    <ColorPaletteCard></ColorPaletteCard>
+    <ColorPaletteCard></ColorPaletteCard>
+    <ColorPaletteCard></ColorPaletteCard>
+    <ColorPaletteCard></ColorPaletteCard>
+    <ColorPaletteCard></ColorPaletteCard>
+    <ColorPaletteCard></ColorPaletteCard>
+    <ColorPaletteCard></ColorPaletteCard>
+</template>

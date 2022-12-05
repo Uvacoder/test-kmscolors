@@ -81,11 +81,6 @@ const nameLabel = () => {
 
             </div>
         </section>
-
-
-
-
-    </div>
 </template> 
 
 <style>
