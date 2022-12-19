@@ -39,7 +39,7 @@ let colorPalette: ColorPalette = {
 <template>
     <div class="colorPaletteCard__wrapper">
         <div class="colorPaletteCard__color__wrapper">
-            <div v-for="color in colorPalette.colors"
+            <div v-for="color in colors"
                  class="colorPaletteCard__color__item"
                  v-bind:data-color="color"
                  v-bind:style="{background: color as string}"
@@ -55,7 +55,7 @@ let colorPalette: ColorPalette = {
         </div>
         <div class="colorPaletteCard__palette__name">
             <span>
-                {{ colorPalette.name }}
+                {{ title }}
             </span>
         </div>
     </div>
