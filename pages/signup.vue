@@ -30,7 +30,7 @@ const sendUserCreateRequest = async () => {
             let res = await GqlCreateUser({ userData: user })
         } catch (error) {
             navigateTo("/login")
-        }
+        } 
     } else {
         updateStatus("failed")
     }
