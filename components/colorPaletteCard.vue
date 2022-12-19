@@ -1,4 +1,6 @@
 <script lang="ts">
+import { ClipboardDocumentIcon } from "@heroicons/vue/24/outline";
+import {useColorCopied} from "~/composables/useColorCopied";
 import { ColorType } from '~~/composables/useColors';
 
 type ColorPalette = {
@@ -11,34 +13,50 @@ let colorPalette: ColorPalette = {
     name: 'Halloween Breeze'
 }
 
-export default {
-    props: {
-        colors: {
-            type: Array,
-            default: ["#FFF"],
+    export default {
+        components: { ClipboardDocumentIcon },
+        props: {
+            colors: {
+                type: Array,
+                default: ["#FFF"],
+            },
+            title: {
+                type: String,
+                default: "My Palette",
+            }
         },
-        title: {
-            type: String,
-            default: "My Palette",
+        methods: {
+            copyHex(color, event) {
+                navigator.clipboard.writeText(color);
+                useColorCopied().toggle();
+
+                console.log(useColorCopied());
+            }
         }
     }
-}
-
 </script>
 
 <template>
     <div class="colorPaletteCard__wrapper">
         <div class="colorPaletteCard__color__wrapper">
-            <div v-for="color in colors" class="colorPaletteCard__color__item" :data-color="color"
-                v-bind:style="{ background: color as string }">
-                <span class="colorPaletteCard__color__item__name">
-                    {{ color }}
-                    <img src="./assets/icons/icon-copy.svg">
-                </span>
+            <div v-for="color in colorPalette.colors"
+                 class="colorPaletteCard__color__item"
+                 v-bind:data-color="color"
+                 v-bind:style="{background: color as string}"
+                 @click="copyHex(color, $event)"
+            >
+                <div class="colorPaletteCard__color__item__hex">
+                    <span>
+                        {{ color }}
+                    </span>
+                    <ClipboardDocumentIcon class="colorPaletteCard__color__item__hex__copy-icon"/>
+                </div>
             </div>
         </div>
         <div class="colorPaletteCard__palette__name">
-            {{ title }}
+            <span>
+                {{ colorPalette.name }}
+            </span>
         </div>
     </div>
 </template>
