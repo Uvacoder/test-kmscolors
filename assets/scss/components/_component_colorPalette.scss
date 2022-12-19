@@ -1,5 +1,4 @@
 $colorPaletteCardTransition: .16s ease-out;
-$colorPaletteCardNameWidth: 33%;
 
 .colorPaletteCard {
     &__wrapper {
@@ -7,9 +6,11 @@ $colorPaletteCardNameWidth: 33%;
         flex-direction: column;
         border: 15px solid white;
         border-radius: 5px;
-        display: flex;
+        min-width: 170px;
         max-width: 500px;
-        box-shadow: 0 10px 20px 0px transparentize(black, 0.8);
+        margin: 20px;
+        box-shadow: 0 10px 20px 0 transparentize(black, 0.8);
+        font-size: 24px;
 
         .colorPaletteCard {
             &__color {
@@ -18,42 +19,51 @@ $colorPaletteCardNameWidth: 33%;
                     align-items: center;
                     flex-direction: column;
                     width: 100%;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    overflow: hidden;
                 }
 
                 &__item {
                     height: 40px;
                     width: 100%;
                     display: flex;
-                    align-items: center;
+                    align-items: end;
                     transition: height $colorPaletteCardTransition;
+                    justify-content: end;
 
                     &:hover {
                         height: 100px;
 
-                        .colorPaletteCard__color__item__name {
+                        .colorPaletteCard__color__item__hex {
                             opacity: 1;
-                            width: $colorPaletteCardNameWidth;
                         }
                     }
 
-                    &__name {
+                    &__hex {
+                        pointer-events: none;
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 0 5px;
                         opacity: 0;
                         color: white;
-                        margin-left: 20px;
+                        margin: 0 20px 20px 0;
                         padding: 0 5px;
                         background: transparentize(black, 0.5);
-                        width: 0;
+                        width: fit-content;
                         transition: opacity $colorPaletteCardTransition, width $colorPaletteCardTransition;
 
-                        &:after {
-                            content:'';
-                            position: relative;
-                            background: url("./");
+                        &__copy-icon {
+                            height: 30px;
+                            min-width: 30px;
+
+                            &--clicked {
+                                animation-name: hex-copied;
+                                animation-duration: 10s;
+                            }
                         }
                     }
-                }
-
-                &:first-child, &:last-child {
                 }
             }
         }

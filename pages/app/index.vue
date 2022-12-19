@@ -1,7 +1,12 @@
 <script>
+import ColorPaletteCard from "../../components/colorPaletteCard";
 definePageMeta({
     middleware: 'auth-guard'
-})</script>
+})
+export default {
+    components: {ColorPaletteCard}
+}
+</script>
 <template>
     <div>
         <h1 class="text-xl text-center">Quick Acess</h1>
