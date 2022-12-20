@@ -1,3 +1,3 @@
 <template>
-    <p>Hello From Component</p>
+    <p>Hello from Component</p>
 </template>

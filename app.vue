@@ -13,8 +13,17 @@
 </template>
 
 <script setup lang="ts">
+
 const auth = useAuth();
 if (process.client) {
   auth.tryContinueSession()
 }
+
+useHead({
+  titleTemplate: (titleChunk) => {
+    const titleBase = 'KMScolors'
+    
+    return titleChunk ? `${titleChunk} - ${titleBase}` : titleBase
+  }
+})
 </script>
