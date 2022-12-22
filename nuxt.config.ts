@@ -28,20 +28,21 @@ export default defineNuxtConfig({
 			skipTypename: true,
 			useTypeImports: true,
 			dedupeFragments: true,
-			onlyOperationTypes: true,
+			onlyOperationTypes: false,
 			disableOnBuild: false,
 		},
 		clients: {
 			directus: {
-				
+
 				clientHost: "https://p8ulf5vo.directus.app/graphql",
 				host: "https://p8ulf5vo.directus.app/graphql",
-				schema:"https://p8ulf5vo.directus.app/graphql",
+				schema: "https://p8ulf5vo.directus.app/graphql",
+				codegenHeaders: { "Authorization": "Bearer H63lW3ex5DB99fSpwErax3-tZZR3IMZg" }
 			},
 			directus_system: {
 				clientHost: "https://p8ulf5vo.directus.app/graphql/system",
 				host: "https://p8ulf5vo.directus.app/graphql/system",
-				schema:"https://p8ulf5vo.directus.app/graphql/system",
+				schema: "https://p8ulf5vo.directus.app/graphql/system",
 			},
 		},
 	},

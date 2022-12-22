@@ -1,22 +1,18 @@
-<script>
-export default {
-    props: {
-        text: {
-            type: String,
-            required: true,
-        },
-        loadingText: {
-            type: String,
-            required: false,
-            default: "Loading..."
-        },
-    }
-}
-</script>
 <script setup>
+defineProps({
+    text: {
+        type: String,
+        required: false,
+        default: undefined
+    },
+    loadingText: {
+        type: String,
+        required: false,
+        default: "Loading..."
+    },
+})
 const colors = ["#D65F5F", "#FAF99F", "#A1F6B6", "#78D8D0", "#FFACC7", "#B2A4FF"]
-const getColor = () => colors[Math.round(Math.random() * colors.length -1)]
-
+const getColor = () => colors[Math.round(Math.random() * colors.length)]
 </script>
 <template>
     <div wire:loading :style="`background-color: ${getColor()}`"
