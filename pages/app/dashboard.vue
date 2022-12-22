@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { GetDashboardInfoDocument } from '~~/.nuxt/gql/directus';
-
 definePageMeta({
-    middleware: 'auth-guard'
+    middleware: 'auth-guard',
+    layout: 'app'
 })
-setPageLayout("admin")
 let userMail = useAuth().user?.email
-let data = await GqlGetDashboardInfo({ mail: userMail! });
-let count = 0;
+let { data, pending } = useAsyncData("dashboardData", () => GqlGetDashboardInfo({ mail: userMail! }));
 
-data.colors.forEach(e => count += e.colors_func?.count!)
+const getCount = () => {
+    let count = 0;
+    data.value?.colors.forEach(e => count += e.colors_func?.count!)
+    return count;
+}
 </script>
 
 <template>
-    <div class="flex-col m-auto text-center">
-    <p>Public Palettes: {{ data.publicPalettes[0].count?.id }}</p>
-    <p>My Palettes: {{ data.userPalettes[0].count?.id }}</p>
-    <p>Colors: {{ count }}</p>
-</div>
+    <LoadingScreen v-if="pending"></LoadingScreen>
+    <div v-else class="flex-col m-auto text-center">
+        <p>Public Palettes: {{ data?.publicPalettes[0].count?.id }}</p>
+        <p>My Palettes: {{ data?.userPalettes[0].count?.id }}</p>
+        <p>Colors: {{ getCount() }}</p>
+    </div>
 </template>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 definePageMeta({
-    middleware: 'auth-guard'
+    middleware: 'auth-guard',
+    layout: 'app'
 })
-setPageLayout("admin")
 
 let colors = useState<string[]>("newcolors", () => [])
 let color = useState<string>("newcolor")
@@ -14,8 +14,13 @@ const onAdd = () => {
 const onClear = () => {
     colors.value = [];
 }
-const onSave = () => {
-    
+const onSave = async () => {
+    let res = await GqlCreatePalette({ data: { title: title.value, visibility: "public", colors: colors.value.map(e => { return { colors: e } }) } })
+    if (res.create_palettes_item?.id != undefined) {
+        navigateTo("/app/browse")
+    } else {
+        alert("Something went wrong!")
+    }
 }
 </script>
 

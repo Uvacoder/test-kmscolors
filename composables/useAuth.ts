@@ -1,4 +1,4 @@
-import { GetUserByMailQuery, LoginMutation } from "#gql";
+import { GetUserByMailQuery, LoginMutation, LogoutMutation } from "#gql";
 import { restoreBlacklistRoutes } from "~~/helper/autoRedirectAfterRestore";
 
 export type AuthData = LoginMutation["auth_login"] & {
@@ -144,13 +144,16 @@ class AuthService {
 	 */
 	public async sendLogoutRequest() {
 		if (this.data.value.access_token) {
-			let res = await GqlLogout({ token: this.data.value.access_token });
-			if (res.auth_logout) {
-				this.resetFields();
-				this.setCookies(null, null);
-			} else {
-				console.error("Error while logging out");
-			}
+			return GqlLogout({ token: this.data.value.access_token }).then(e => {
+				if (e.auth_logout) {
+					this.resetFields();
+					this.setCookies(null, null);
+					navigateTo("/")
+				} else {
+					console.error("Error while logging out");
+				}
+				return e;
+			});
 		}
 	}
 

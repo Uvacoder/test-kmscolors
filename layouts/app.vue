@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RectangleGroupIcon, PlusIcon } from '@heroicons/vue/24/outline';
+import { RectangleGroupIcon, PlusIcon, ArrowLeftOnRectangleIcon } from '@heroicons/vue/24/outline';
 
 const auth = useAuth();
 const getAvatarString = () => {
@@ -9,36 +9,49 @@ const getAvatarString = () => {
     return auth.user?.email
   }
 }
+const tryLogout = useState<boolean>(() => false)
+const handleLogout = async () => {
+  tryLogout.value = true;
+  await auth.sendLogoutRequest()
+  tryLogout.value = false;
+}
 </script>
 <template>
   <ClientOnly>
+    <LoadingScreen v-if="tryLogout" text="Logging out..."></LoadingScreen>
     <div>
 
       <div class="h-screen w-full bg-white relative flex overflow-hidden">
         <!-- Sidebar -->
         <aside class="h-full w-16 flex flex-col space-y-10 items-center justify-center relative bg-gray-800 text-white">
           <!-- Profile -->
-          <div
-            class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-            <NuxtLink to="/app/dashboard"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
-                fill="currentColor">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-              </svg></NuxtLink>
-          </div>
+
+          <NuxtLink
+            class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white"
+            to="/app/dashboard"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20"
+              fill="currentColor">
+              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg></NuxtLink>
+
 
           <!-- Courses -->
-          <div
-            class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-            <NuxtLink to="/app/browse"><RectangleGroupIcon class="w-8 h-8"></RectangleGroupIcon></NuxtLink>
-          </div>
+          <NuxtLink to="/app/browse"
+            class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
+            <RectangleGroupIcon class="w-8 h-8"></RectangleGroupIcon>
+          </NuxtLink>
 
           <!-- Configuration -->
-          <div
+          <NuxtLink to="/app/new"
             class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-            <NuxtLink to="/app/new">
-              <PlusIcon class="w-8 h-8"></PlusIcon>
-            </NuxtLink>
+            <PlusIcon class="w-8 h-8"></PlusIcon>
+          </NuxtLink>
+
+          <!-- Configuration -->
+          <div @click="handleLogout()"
+            class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
+            <ArrowLeftOnRectangleIcon class="w-8 h-8"></ArrowLeftOnRectangleIcon>
           </div>
+
         </aside>
 
 

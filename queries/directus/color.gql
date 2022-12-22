@@ -2,6 +2,10 @@ query getColors {
 	palettes {
 		title
 		colors
+		user_created{
+			first_name,
+			last_name
+		}
 	}
 }
 
@@ -24,4 +28,9 @@ query getDashboardInfo($mail: String!) {
 		}
 	}
 	
+}
+mutation createPalette($data: create_palettes_input!){
+	create_palettes_item(data: $data){
+		id
+	}
 }
