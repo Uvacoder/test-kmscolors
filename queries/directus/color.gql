@@ -1,6 +1,27 @@
 query getColors {
-	palettes{
-		title,
+	palettes {
+		title
 		colors
 	}
+}
+
+query getDashboardInfo($mail: String!) {
+	publicPalettes: palettes_aggregated {
+		count {
+			id
+		}
+	}
+	userPalettes: palettes_aggregated(
+		filter: { user_created: { email: { _eq: $mail } } }
+	) {
+		count {
+			id
+		}
+	}
+	colors: palettes {
+		colors_func {
+			count
+		}
+	}
+	
 }

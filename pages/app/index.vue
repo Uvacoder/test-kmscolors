@@ -3,6 +3,7 @@ import ColorPaletteCard from "../../components/colorPaletteCard";
 definePageMeta({
     middleware: 'auth-guard'
 })
+setPageLayout("admin")
 export default {
     components: {ColorPaletteCard}
 }
