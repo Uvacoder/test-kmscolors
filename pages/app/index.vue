@@ -1,7 +1,8 @@
 <script>
 import ColorPaletteCard from "../../components/colorPaletteCard";
 definePageMeta({
-    middleware: 'auth-guard'
+    middleware: 'auth-guard',
+    layout: 'app'
 })
 export default {
     components: {ColorPaletteCard}

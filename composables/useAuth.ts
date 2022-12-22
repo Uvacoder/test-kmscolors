@@ -1,4 +1,4 @@
-import { GetUserByMailQuery, LoginMutation } from "#gql";
+import { GetUserByMailQuery, LoginMutation, LogoutMutation } from "#gql";
 import { restoreBlacklistRoutes } from "~~/helper/autoRedirectAfterRestore";
 
 export type AuthData = LoginMutation["auth_login"] & {
@@ -20,12 +20,11 @@ class AuthService {
 		return {};
 	});
 	public loginHasFailed = useState<boolean>("lhf", () => false);
-	private setLoginHasFailed(status:boolean){
+	private setLoginHasFailed(status: boolean) {
 		this.loginHasFailed.value = status;
 		setTimeout(() => {
 			this.loginHasFailed.value = false;
-		},5000)
-
+		}, 5000);
 	}
 	public lastFailedNavigation = useCookie("__lfrc", {
 		sameSite: "strict",
@@ -53,7 +52,13 @@ class AuthService {
 		if (email && password) {
 			this.setCookies(null, null);
 			try {
-				let res = await GqlLogin({ email: email, password: password },{"Cache-Control":"no-store"});
+				let res = await GqlLogin(
+					{ email: email, password: password },
+					{ "Cache-Control": "no-store" }
+				);
+				useGqlHeaders({
+					Authorization: "Bearer " + res.auth_login?.access_token,
+				});
 				this.data.value = { ...res.auth_login };
 				await this.fetchUser(email);
 				this.setLoginHasFailed(false);
@@ -99,6 +104,9 @@ class AuthService {
 				refresh_token: refreshToken,
 			});
 			this.data.value = { ...res.auth_refresh };
+			useGqlHeaders({
+				Authorization: "Bearer " + res.auth_refresh?.access_token,
+			});
 			await this.fetchUser(this.lastUserCookie.value!);
 			this.setCookies(res.auth_refresh?.refresh_token!, this.user?.email!);
 			this.attemptingRestore.value = false;
@@ -136,13 +144,16 @@ class AuthService {
 	 */
 	public async sendLogoutRequest() {
 		if (this.data.value.access_token) {
-			let res = await GqlLogout({ token: this.data.value.access_token });
-			if (res.auth_logout) {
-				this.resetFields();
-				this.setCookies(null, null);
-			} else {
-				console.error("Error while logging out");
-			}
+			return GqlLogout({ token: this.data.value.access_token }).then(e => {
+				if (e.auth_logout) {
+					this.resetFields();
+					this.setCookies(null, null);
+					navigateTo("/")
+				} else {
+					console.error("Error while logging out");
+				}
+				return e;
+			});
 		}
 	}
 
